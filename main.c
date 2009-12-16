@@ -195,9 +195,15 @@ int main (void)
 	}
 
 	halfdelay (1);
-	while (getch () != '\n')
+	while ((i = getch ()) != '\n')
 	{
 		global.line = 0;
+
+		switch (i)
+		{
+			case 'r': clear (); break;
+			case 'q': raise (SIGTERM); break;
+		}
 
 		/* Check system informations */
 		if (0 != sysinfo (&global.sys))
