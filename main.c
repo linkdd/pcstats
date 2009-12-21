@@ -195,14 +195,13 @@ int main (void)
 	}
 
 	halfdelay (1);
-	while ((i = getch ()) != '\n')
+	while ((c =getch ()) != '\n')
 	{
 		global.line = 0;
 
-		switch (i)
+		switch (c)
 		{
 			case 'r': clear (); break;
-			case 'q': raise (SIGTERM); break;
 		}
 
 		/* Check system informations */
@@ -310,6 +309,12 @@ void printbar (const char *str, double perc, int reverse)
 	if (strlen (str) > 6)
 	{
 		mvprintw (global.line++, 0, "%s:\n", str);
+	if (str == NULL || perc < 0.0 || perc > 100.0)
+		return;
+
+	if (strlen (str) > 6)
+	{
+		mvprintw (global.line++, 0, "%s:\n", str);
 		mvprintw (global.line++, 0, "\t%3d%% [", (int) perc);
 	}
 	else
@@ -341,9 +346,3 @@ void printbar (const char *str, double perc, int reverse)
 
 	coloroff (GREEN);
 	coloroff (YELLOW);
-	coloroff (RED);
-
-	printw ("]\n");
-
-	refresh ();
-}
