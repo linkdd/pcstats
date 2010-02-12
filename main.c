@@ -68,7 +68,7 @@ void loadavg (void)
 
 int main (void)
 {
-	int i;
+	int i, c;
 
 	initscr ();
 	noecho ();
@@ -195,7 +195,7 @@ int main (void)
 	}
 
 	halfdelay (1);
-	while ((c =getch ()) != '\n')
+	while ((c = getch ()) != '\n')
 	{
 		global.line = 0;
 
@@ -309,12 +309,6 @@ void printbar (const char *str, double perc, int reverse)
 	if (strlen (str) > 6)
 	{
 		mvprintw (global.line++, 0, "%s:\n", str);
-	if (str == NULL || perc < 0.0 || perc > 100.0)
-		return;
-
-	if (strlen (str) > 6)
-	{
-		mvprintw (global.line++, 0, "%s:\n", str);
 		mvprintw (global.line++, 0, "\t%3d%% [", (int) perc);
 	}
 	else
@@ -346,3 +340,4 @@ void printbar (const char *str, double perc, int reverse)
 
 	coloroff (GREEN);
 	coloroff (YELLOW);
+}
