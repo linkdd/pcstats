@@ -340,4 +340,6 @@ void printbar (const char *str, double perc, int reverse)
 
 	coloroff (GREEN);
 	coloroff (YELLOW);
+
+	printw ("]");
 }

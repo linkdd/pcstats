@@ -15,6 +15,9 @@ void diskbar (void)
 		{
 			if (2 == sscanf (buf, "/dev/%s %s", hd, mount))
 			{
+				if (!strcmp (mount, "/"))
+					continue;
+
 				if (statfs (mount, &disk) == -1 || disk.f_blocks == 0)
 					continue;
 
@@ -23,6 +26,20 @@ void diskbar (void)
 				perc = used / total * 100.0;
 
 				printbar (hd, perc, 0);
+			}
+		}
+		else if (!strncmp (buf, "rootfs", 6))
+		{
+			if (1 == sscanf (buf, "rootfs %s", mount))
+			{
+				if (statfs (mount, &disk) == -1 || disk.f_blocks == 0)
+					continue;
+
+				total = (double) disk.f_blocks;
+				used = total - (double) disk.f_bfree;
+				perc = used / total * 100.0;
+
+				printbar ("RootFS", perc, 0);
 			}
 		}
 	}

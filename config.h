@@ -35,7 +35,7 @@ struct NetworkInterface ethernet[] =
  */
 const char *wireless[] =
 {
-	"wlan0",
+	"eth0",
 	NULL
 };
 
